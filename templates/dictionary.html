@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+
+{% block header %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="container py-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      {% for word in words %}
+      <div class="col">
+        <div class="card h-100 shadow-sm" style="border: 2px solid #ddd; border-radius: 10px;">
+          <div class="card-header text-center bg-light" style="font-weight: bold;">
+            {{ word.title }}
+          </div>
+          <div class="card-body">
+            <p class="card-text text-center">
+              {{ word.translation }}
+            </p>
+            <p class="card-text text-muted">
+              {{ word.description }}
+            </p>
+            <div class="text-center">
+              <img src="{{ word.img }}" alt="Image for {{ word.title }}" class="img-fluid rounded" style="max-height: 150px;">
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <button type="button" class="btn btn-primary btn-sm">View</button>
+            <button type="button" class="btn btn-secondary btn-sm">Edit</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</main>
+{% endblock %}
