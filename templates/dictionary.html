@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-
+{% block title %} Словарь {% endblock  %}
 {% block header %}
 {{ super() }}
 {% endblock %}
@@ -7,32 +7,47 @@
 {% block content %}
 <main>
   <div class="container py-5">
+    <div class="d-flex justify-content-end mb-4">
+      <a href="/create" class="btn btn-success">Добавить слово в словарь</a>
+    </div>
+    <form method="post" class="mb-4">
+    <div class="input-group">
+      <input type="text" name="search" class="form-control" placeholder="Поиск по словам" required>
+      <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+    </div>
+  </form>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-      {% for word in words %}
-      <div class="col">
-        <div class="card h-100 shadow-sm" style="border: 2px solid #ddd; border-radius: 10px;">
-          <div class="card-header text-center bg-light" style="font-weight: bold;">
-            {{ word.title }}
-          </div>
-          <div class="card-body">
-            <p class="card-text text-center">
-              {{ word.translation }}
-            </p>
-            <p class="card-text text-muted">
-              {{ word.description }}
-            </p>
+    {% for word in words %}
+    <div class="col">
+      <div class="card h-100 shadow-sm" style="border: 2px solid #ddd; border-radius: 10px;">
+        <div class="card-header text-center bg-light" style="font-weight: bold;">
+          {{ word.title }}
+        </div>
+        <div class="card-body">
+          <p class="card-text text-center">
+            {{ word.translation }}
+          </p>
+          <p class="card-text text-muted">
+            {{ word.description }}
+          </p>
+          {% if word.img %}
             <div class="text-center">
-              <img src="{{ word.img }}" alt="Image for {{ word.title }}" class="img-fluid rounded" style="max-height: 150px;">
+              <img src="{{ url_for('static', filename='uploads/' ~ word.img) }}" alt="Image for {{ word.title }}" class="img-fluid rounded" style="max-height: 150px;">
             </div>
-          </div>
-          <div class="card-footer text-center">
-            <button type="button" class="btn btn-primary btn-sm">View</button>
-            <button type="button" class="btn btn-secondary btn-sm">Edit</button>
-          </div>
+          {% else %}
+            <div class="text-center">
+              <p>Изображение не доступно</p>
+            </div>
+          {% endif %}
+        </div>
+        <div class="card-footer text-center">
+          <button type="button" class="btn btn-primary btn-sm">Учить</button>
+          <button type="button" class="btn btn-secondary btn-sm">Edit</button>
         </div>
       </div>
-      {% endfor %}
     </div>
+    {% endfor %}
   </div>
+</div>
 </main>
 {% endblock %}

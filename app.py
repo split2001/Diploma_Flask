@@ -1,15 +1,23 @@
 
-from flask import Flask, render_template, request, redirect
-from db import db
+from flask import Flask
+from extensions import db, login_manager, bcrypt
 from flask_migrate import Migrate
-
+import os
+from flask_security import Security
 
 def create_app():
     app = Flask(__name__)  # создаем экземпляр приложения
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # настройка подключения к БД
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['UPLOAD_FOLDER'] = 'static/uploads'
+    app.config['SECRET_KEY'] = os.urandom(24)
     db.init_app(app)  # связываем с SQLAlchemy приложением
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+    # login_manager.login_view = 'user.username'
+    # login_manager.login_message = ''
     migrate = Migrate(app, db)
+
     with app.app_context():
         from models.word import Word
         from models.user import User
@@ -32,4 +40,4 @@ else:
     from models.word import Word
     from models.user import User
     from models.userword import UserWord
-    from db import db
+    from extensions import db

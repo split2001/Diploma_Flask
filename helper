@@ -3,6 +3,10 @@ pip install flask-sqlalchemy
 pip install flask-migrate
 pip install flask login управление сессиями(вход\выход)
 pip install flask-security авторизация и регистрация
+pip install flask-wtf  создание форм регистрации
+pip install flask_bcrypt хеширование паролей
+pip install setuptools нужна для работы flask-security
+
 
 
 Для создания объектов открываем Python Console:
@@ -17,8 +21,18 @@ app = create_app()
 app.app_context().push()
 
 
+
+Миграции БД:
 from flask_migrate import Migrate  в app.py
 migrate = Migrate(app, db) в app.py
 flask db init
 flask db migrate -m 'initial'
 flask db upgrade
+
+
+Удаление объектов из бдЖ
+flask shell
+from db import db
+from models.word import Word
+Word.query.delete()
+db.session.commit()

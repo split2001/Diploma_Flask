@@ -1,5 +1,5 @@
 
-from db import db
+from extensions import db
 
 
 class Word(db.Model):

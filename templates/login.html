@@ -1,33 +1,31 @@
 {% extends 'base.html' %}
-
+{% block title %} Авторизация {% endblock %}
 {% block header %}
 {{ super() }}
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid vh-100" style="margin-top:50px">
-    <div class="" style="margin-top:100px">
-        <div class="rounded d-flex justify-content-center">
-            <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
-                <div class="text-center">
-                    <h3 class="text-primary">Авторизация</h3>
-                </div>
-                <div class="p-4">
-                    <form action="">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text bg-primary"><i
-                                    class="bi bi-person-plus-fill text-white"></i></span>
-                            <input type="text" class="form-control" placeholder="Username">
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text bg-primary"><i class="bi bi-key-fill text-white"></i></span>
-                            <input type="password" class="form-control" placeholder="password">
-                        </div>
-                        <div class="d-grid col-12 mx-auto">
-                            <button class="btn btn-primary" type="button"><span></span> Вход</button>
-                        </div>
-                    </form>
-                </div>
+<div class="container-fluid vh-80" style="margin-top: 50px;">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+        <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light rounded">
+            <div class="text-center mb-4">
+                <h3 class="text-primary">Авторизоваться</h3>
+            </div>
+            <div class="p-4">
+                <form method="post" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <div class="mb-3">
+                        {{ form.username(class='form-control',placeholder='Имя пользователя') }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.password(class='form-control',placeholder='Пароль') }}
+                    </div>
+
+                    <div class="text-center">
+                        {{ form.submit(class='btn btn-success')}}
+                    </div>
+                </form>
             </div>
         </div>
     </div>

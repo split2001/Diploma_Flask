@@ -1,5 +1,5 @@
 from sqlalchemy import ForeignKey
-from db import db
+from extensions import db
 from models.word import Word
 from models.user import User
 
