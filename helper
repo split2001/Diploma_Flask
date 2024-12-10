@@ -5,7 +5,7 @@ pip install flask login управление сессиями(вход\выхо�
 pip install flask-security авторизация и регистрация(необязательно при использовании flask login)
 pip install flask-wtf  создание форм регистрации
 pip install flask_bcrypt хеширование паролей
-pip install setuptools нужна для работы flask-security
+pip install setuptools нужна для работы flask-security(необязательно при использовании flask login)
 
 
 

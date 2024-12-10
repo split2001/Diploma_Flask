@@ -32,8 +32,3 @@ if __name__ == '__main__':
     app = create_app()
     app.run()
 
-# else:
-#     from models.word import Word
-#     from models.user import User
-#     from models.userword import UserWord
-#     from extensions import db
