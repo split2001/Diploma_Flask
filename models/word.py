@@ -11,4 +11,4 @@ class Word(db.Model):
     description = db.Column(db.String, nullable=True)
     img = db.Column(db.String, nullable=True)
 
-    users = db.relationship('UserWord', back_populates='word')
+    users = db.relationship('UserWord', back_populates='word', cascade='all, delete-orphan')

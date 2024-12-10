@@ -2,7 +2,7 @@ pip install flask
 pip install flask-sqlalchemy
 pip install flask-migrate
 pip install flask login управление сессиями(вход\выход)
-pip install flask-security авторизация и регистрация
+pip install flask-security авторизация и регистрация(необязательно при использовании flask login)
 pip install flask-wtf  создание форм регистрации
 pip install flask_bcrypt хеширование паролей
 pip install setuptools нужна для работы flask-security
@@ -30,9 +30,17 @@ flask db migrate -m 'initial'
 flask db upgrade
 
 
-Удаление объектов из бдЖ
+Удаление объектов из бд
 flask shell
-from db import db
+from extensions import db
 from models.word import Word
 Word.query.delete()
 db.session.commit()
+
+
+Изменение значение объектов в БД
+flask shell
+from extensions import db
+from models.word import Word
+word = Word.query.get(4)
+word.translation='тёрка'

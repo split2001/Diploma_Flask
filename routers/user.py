@@ -9,12 +9,12 @@ user_bp = Blueprint('user', __name__)  # для связи routers c app.py
 
 @user_bp.route('/login', methods=['GET','POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
+    form = LoginForm() # получаем форму авторизации
+    if form.validate_on_submit(): # проверяем ее на валидность
         user = User.query.filter_by(username=form.username.data).first()  # проверяем наличие пользователя в БД
         if user and bcrypt.check_password_hash(user.password, form.password.data): # проверка совпадения
     # сохраненного пароля в БД и введенного в форме
-            login_user(user)
+            login_user(user)  # логиним пользователя
             return redirect('/')
         else:
             form.password.errors.append('Неправильное имя пользователя или пароль.')
@@ -23,18 +23,18 @@ def login():
 
 @user_bp.route('/register', methods=['GET','POST'])
 def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+    form = RegisterForm()  # получаем форму регистрации
+    if form.validate_on_submit(): # проверяем ее на валидность
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8') # проверяем ее на валидность
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        login_user(user)
+        login_user(user)  # логиним пользователя
         return redirect ('/')
     return render_template('register.html', form=form)
 
 
-@user_bp.route('/login', methods=['GET','POST'])
+@user_bp.route('/logout', methods=['GET','POST'])
 def logout():
     logout_user()
     return redirect('/login')

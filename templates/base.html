@@ -19,14 +19,17 @@
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="/" class="nav-link px-2 text-secondary">Главная</a></li>
                         <li><a href="/dictionary" class="nav-link px-2 text-white">Словарь</a></li>
-                        {% if current_user.is_authenticated%}
-                        <li><a href="/favorite" class="nav-link px-2 text-white">Мои слова</a></li>
+                        {% if current_user.is_authenticated %}
+                        <li class="d-flex align-items-center">
+                            <a href="/favorites" class="nav-link px-2 text-white">Мои слова</a>
+                            <span class="badge bg-info ms-2">{{ learned_count }}</span> <!-- Добавляем счетчик -->
+                        </li>
                         {% endif %}
                     </ul>
 
                     <div class="text-end">
-                        {% if current_user.is_authenticated%}
-                        <span>Добро пожаловать, {{ current_user.username}}</span>
+                        {% if current_user.is_authenticated %}
+                        <span>Добро пожаловать, {{ current_user.username }}</span>
                         <a href="/logout" class="btn btn-warning">Выход</a>
                         {% else %}
                         <a href="/login" class="btn btn-outline-light me-2">Авторизация</a>
